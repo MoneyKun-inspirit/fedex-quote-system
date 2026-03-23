@@ -1,0 +1,118 @@
+{
+  "system_settings": {
+    "dim_divisor": 250,
+    "credit_card_rebate_rate": 0.016,
+    "fuel_surcharge_rate": 0.255,
+    "fuel_surcharge_discount": 0.7
+  },
+  "surcharge_rules": {
+    "Residential": {
+      "type": "boolean",
+      "description": "住宅派送费",
+      "rates": {
+        "default": 2.26
+      }
+    },
+    "AHS_Weight": {
+      "type": "condition",
+      "description": "超重附加费 (单件包裹实际重量 > 50 lbs)",
+      "condition": "actual_weight > 50",
+      "rates": {
+        "2": 7.36,
+        "3": 8.04,
+        "4": 8.04,
+        "5": 9.0,
+        "6": 9.0,
+        "7": 9.4,
+        "8": 9.4,
+        "9": 9.4
+      }
+    },
+    "AHS_Dimension": {
+      "type": "condition",
+      "description": "超尺寸附加费 (最长边>48或次长边>30或围长>105或体积>10368)",
+      "condition": "length > 48 or width > 30 or (length + width*2 + height*2) > 105 or (length*width*height) > 10368",
+      "min_billable_weight": 40,
+      "rates": {
+        "2": 4.72,
+        "3": 5.24,
+        "4": 5.24,
+        "5": 6.16,
+        "6": 6.16,
+        "7": 6.52,
+        "8": 6.52,
+        "9": 6.52
+      }
+    },
+    "AHS_Packaging": {
+      "type": "boolean",
+      "description": "不规则包装 (用户手动勾选)",
+      "rates": {
+        "2": 4.24,
+        "3": 4.92,
+        "4": 4.92,
+        "5": 5.28,
+        "6": 5.28,
+        "7": 5.4,
+        "8": 5.4,
+        "9": 5.4
+      }
+    },
+    "Oversize": {
+      "type": "condition",
+      "description": "超大件 (围长>130或最长边>96或体积>17280或实重>110)",
+      "condition": "(length + width*2 + height*2) > 130 or length > 96 or (length*width*height) > 17280 or actual_weight > 110",
+      "min_billable_weight": 90,
+      "rates": {
+        "2": 40.8,
+        "3": 44.0,
+        "4": 44.0,
+        "5": 51.2,
+        "6": 51.2,
+        "7": 52.8,
+        "8": 52.8,
+        "9": 52.8
+      }
+    },
+    "DAS": {
+      "type": "das_lookup",
+      "description": "偏远地区附加费",
+      "rates": {
+        "Commercial": {
+          "DAS_ContUS": 1.78,
+          "DAS_ContUSExt": 2.22,
+          "DAS_ContUSRem": 6.7
+        },
+        "Residential": {
+          "DAS_ContUS": 2.64,
+          "DAS_ContUSExt": 3.52,
+          "DAS_ContUSRem": 6.7
+        }
+      }
+    },
+    "Signature": {
+      "type": "options",
+      "description": "签名服务",
+      "options": {
+        "Indirect": 3.8,
+        "Direct": 3.8,
+        "Adult": 5.0
+      }
+    },
+    "Unauthorized": {
+      "type": "condition",
+      "description": "超大包裹惩罚费 (实重>150或最长边>108或围长>165)",
+      "condition": "actual_weight > 150 or length > 108 or (length + width*2 + height*2) > 165",
+      "rates": {
+        "default": 1875.0
+      }
+    },
+    "Address_Correction": {
+      "type": "boolean",
+      "description": "地址修改操作",
+      "rates": {
+        "default": 12.75
+      }
+    }
+  }
+}
